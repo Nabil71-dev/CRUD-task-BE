@@ -6,7 +6,6 @@ const mongoose = require('mongoose')
 const DbConfig = require('./config/DbConfig');
 
 
-
 const app = express();
 app.use(cors());
 app.use(bodyParser.json({ limit: 1024 * 1024 * 10 }));
@@ -21,14 +20,11 @@ try {
   console.log(`Database can't be connected: ${err}`);
 }
 
-
-//Testing routes
-app.get("/test", (req, res) => {
-  return res.status(200).send({
-    message: 'Testing success'
-  })
-})
-
+// initialize routes
+app.use("/api/brand", require("./routes/brand.routes"));
+app.use("/api/category", require("./routes/category.routes"));
+app.use("/api/group", require("./routes/group.routes"));
+app.use("/api/product", require("./routes/product.routes"));
 
 //default error handler
 app.use((err, req, res, next) => {
